@@ -1,17 +1,24 @@
 # SPYder
 
 Instagram => [Accurate]
+
 Twitter/X => [Accurate]
+
 Facebook => [Not-Accurate]
+
 GitHub => [Accurate]
+
 TikTok => [Not-Accurate]
+
 SnapChat => [Accurate]
+
 Reddit => [Not-Accurate]
+
 YouTube => [Accurate]
 
 # Installation
 ```
-curl -sSL https://raw.githubusercontent.com/Trabbit0ne/spyder/refs/heads/main/main.sh -o $(dirname $(command -v bash))/spyder && chmod +x $(dirname $(command -v bash))/spyder
+git clone https://github.com/Trabbit0ne/spyder && cd spyder && chmod +x * && ./main.sh && echo 'alias spyder="cd ~/spyder/ && ./main.sh"' > ~/.bashrc && source ~/.bashrc
 ```
 Then
 
