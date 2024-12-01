@@ -29,7 +29,7 @@ check_platform() {
 
   case $platform in
     "twitter")
-      results=$(python3 checkers/xcheck.py "$username")
+      result=$(python3 checkers/xcheck.py "$username")
       if [ "$result" == "True" ]; then
         echo -e "[\e[32m+\e[0m] Username '\e[32m$username\e[0m' ~> \e[32m$platform\e[0m [\e[32m√\e[0m]"
       else
