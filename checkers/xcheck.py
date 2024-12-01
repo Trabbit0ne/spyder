@@ -28,24 +28,28 @@ def fetch_results(query, page_number=1):
     soup = BeautifulSoup(response.text, 'html.parser')
 
     # Find the relevant parts of the Google SERP (e.g., links to results)
-    results = soup.find_all('h3')
+    results = soup.find_all('a')
 
     # Extract and return titles and URLs
     extracted_results = []
     for result in results:
-        a_tag = result.find_parent('a')
-        if a_tag:
+        href = result.get('href')
+        if href and 'url?q=' in href:
+            link = href.split('url?q=')[1].split('&sa=U')[0]
             title = result.get_text()
-            link = a_tag['href']
             extracted_results.append((title, link))
 
     return extracted_results
 
-def check_instagram_profile(username):
-    search_query = f"{username} twitter"
+def check_twitter_profile(username):
+    search_query = f"{username} site:x.com"
+    print(f"Fetching results for query: {search_query} (Page 1)")
     results = fetch_results(search_query)
     for title, link in results:
-        if username.lower() in title.lower():
+        parsed_url = urllib.parse.urlparse(link)
+        if parsed_url.netloc == 'x.com' and parsed_url.path and username.lower() in parsed_url.path.lower():
+            print(f"Title: {title}")
+            print(f"Link: {link}")
             print("True")
             return True
     print("False")
@@ -53,8 +57,8 @@ def check_instagram_profile(username):
 
 # Get the username from the command line argument
 if len(sys.argv) != 2:
-    print("Usage: python3 instacheck.py <username>")
+    print("Usage: python3 tiktokcheck.py <username>")
     sys.exit(1)
 
 username = sys.argv[1]
-check_instagram_profile(username)
+check_twitter_profile(username)
