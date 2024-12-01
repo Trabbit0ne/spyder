@@ -42,14 +42,11 @@ def fetch_results(query, page_number=1):
     return extracted_results
 
 def check_twitter_profile(username):
-    search_query = f"{username} site:x.com"
-    print(f"Fetching results for query: {search_query} (Page 1)")
+    search_query = f"{username} site:twitter.com OR site:x.com"
     results = fetch_results(search_query)
     for title, link in results:
         parsed_url = urllib.parse.urlparse(link)
-        if parsed_url.netloc == 'x.com' and parsed_url.path and username.lower() in parsed_url.path.lower():
-            print(f"Title: {title}")
-            print(f"Link: {link}")
+        if parsed_url.netloc in ['twitter.com', 'x.com'] and parsed_url.path and username.lower() in parsed_url.path.lower():
             print("True")
             return True
     print("False")
@@ -57,7 +54,7 @@ def check_twitter_profile(username):
 
 # Get the username from the command line argument
 if len(sys.argv) != 2:
-    print("Usage: python3 tiktokcheck.py <username>")
+    print("Usage: python3 twittercheck.py <username>")
     sys.exit(1)
 
 username = sys.argv[1]
